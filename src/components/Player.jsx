@@ -6,11 +6,17 @@ import {
   faAngleRight,
 } from '@fortawesome/free-solid-svg-icons'
 
-const Player = ({ currentSong }) => {
+const Player = ({ currentSong, isPlaying, setIsPlaying }) => {
   const audioRef = useRef(null)
   //even handler
   const playSongHandler = () => {
-    
+    if (isPlaying) {
+      audioRef.current.pause()
+      setIsPlaying(!isPlaying)
+    } else {
+      audioRef.current.play()
+      setIsPlaying(!isPlaying)
+    }
   }
 
   return (
@@ -34,7 +40,7 @@ const Player = ({ currentSong }) => {
           icon={faAngleRight}
         />
       </div>
-      <audio ref={audioRef}  src={currentSong.audio}></audio>
+      <audio ref={audioRef} src={currentSong.audio}></audio>
     </div>
   )
 }
